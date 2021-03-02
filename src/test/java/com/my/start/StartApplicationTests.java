@@ -2,6 +2,7 @@ package com.my.start;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.my.start.pojo.User;
+import com.my.start.util.RedisUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,6 +13,9 @@ import org.springframework.data.redis.core.RedisTemplate;
 class StartApplicationTests {
     @Autowired
     RedisTemplate redisTemplate;
+
+    @Autowired
+    RedisUtil redisUtil;
     @Test
     void contextLoads() {
     }
@@ -25,5 +29,12 @@ class StartApplicationTests {
         redisTemplate.opsForValue().set("user", value);
 
         System.out.println(redisTemplate.opsForValue().get("user"));
+    }
+
+
+    @Test
+    public void test1(){
+        redisUtil.set("a", "b");
+        System.out.println(redisUtil.get("a"));
     }
 }
