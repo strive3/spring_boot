@@ -1,0 +1,5 @@
+spring:
+  redis:
+    host: 152.136.142.49
+    port: 6379
+    password:     #填写密码
