@@ -9,11 +9,12 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.integration.redis.util.RedisLockRegistry;
 
 /**
  * @Author duxiaopeng
  * @Date 2021/3/2 4:50 下午
- * @Description TODO
+ * @Description 自定义RedisTemplate    以及RedisLockRegistry分布式锁
  */
 @Configuration
 public class RedisConfig {
@@ -40,5 +41,14 @@ public class RedisConfig {
         //hash的value也采用jackson的序列化方式
         redisTemplate.setHashValueSerializer(jackson2JsonRedisSerializer);
         return redisTemplate;
+    }
+
+    @Bean
+    public RedisLockRegistry redisLockRegistry(RedisConnectionFactory redisConnectionFactory){
+        //第一个参数redisConnectionFactory
+        //第二个参数registryKey，分布式锁前缀，设置为项目名称会好些
+        //该构造方法对应的分布式锁，默认有效期是60秒.可以自定义
+        return new RedisLockRegistry(redisConnectionFactory, "start");
+        //return new RedisLockRegistry(redisConnectionFactory, "boot-launch",60);
     }
 }

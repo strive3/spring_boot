@@ -11,16 +11,26 @@ sourceCompatibility = '1.8'
 repositories {
     mavenCentral()
 }
+//设置elasticsearch 版本
+ext['elasticsearch.version'] = '7.10.2'
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-elasticsearch
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-elasticsearch', version: '2.4.3'
+
 
     // lombok
     annotationProcessor 'org.projectlombok:lombok:1.18.2'
     compileOnly 'org.projectlombok:lombok:1.18.2'
+
+    //RedisLockRegistry分布式锁
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-integration', version: '2.4.3'
+    implementation group: 'org.springframework.integration', name: 'spring-integration-redis', version: '5.4.4'
+
 }
 
 test {
